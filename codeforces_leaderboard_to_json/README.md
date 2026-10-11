@@ -5,9 +5,9 @@ This script automatically fetches and aggregates the total number of solved prob
 *Note: This project is fully vibe-coded.*
 
 ## Features
-* **Multi-League Support:** Aggregate different sets of contests into separate JSON leaderboards (e.g., Div 1 and Div 2).
+* **Multi-League Support:** Aggregate different sets of contests into separate JSON leaderboards (e.g., Pro and Challenger).
 * **Penalty-Free Scoring:** Ranks participants purely by the number of problems solved (`points > 0`).
-* **Secure Authentication:** Uses a `.env` file to keep your Codeforces API Key and Secret safe.
+* **Secure Configuration:** Uses a `.env` file to store both your Codeforces API credentials and your contest IDs.
 * **Automated Rate Limiting:** Built-in delays prevent API bans from Codeforces.
 
 ## Prerequisites
@@ -15,31 +15,24 @@ This script automatically fetches and aggregates the total number of solved prob
 * `requests`
 * `python-dotenv`
 
-## Setup
+## Setup & Configuration
 1. Clone or download this repository.
 2. Install the required Python packages:
    ```bash
    pip install requests python-dotenv
    ```
-3. Create a `.env` file in the root directory and add your Codeforces API credentials:
+3. Create a `.env` file in the root directory and add your Codeforces API credentials and your comma-separated contest IDs:
    ```env
    CF_API_KEY="your_api_key_here"
    CF_API_SECRET="your_api_secret_here"
+   LEAGUE_PRO_IDS="123456,123457,123458"
+   LEAGUE_CHA_IDS="987654,987655"
    ```
-   *(Generate these at [Codeforces API Settings](https://codeforces.com/settings/api))*
-
-## Configuration
-Open the Python script and modify the `LEAGUES` dictionary to match your desired output files and Codeforces contest IDs:
-```python
-LEAGUES = {
-    'league_div1.json': [123456, 123457],
-    'league_div2.json': [987654, 987655]
-}
-```
+   *(Generate credentials at [Codeforces API Settings](https://codeforces.com/settings/api))*
 
 ## Usage
 Run the script via terminal:
 ```bash
 python cf_leaderboard_script.py
 ```
-The script will fetch the standings, aggregate the solves, and generate the configured JSON files in the same directory.
+The script will fetch the standings, aggregate the solves, and generate the configured JSON files (`league_pro.json` and `league_challenger.json`) in the same directory.

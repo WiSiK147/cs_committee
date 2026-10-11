@@ -18,10 +18,16 @@ load_dotenv()
 API_KEY = os.getenv('CF_API_KEY')
 API_SECRET = os.getenv('CF_API_SECRET')
 
-# Define your leagues, pairing the desired output filename with its contest IDs.
+# Helper function to parse comma-separated IDs from the .env file
+def parse_ids(env_string):
+    if not env_string:
+        return []
+    return [int(x.strip()) for x in env_string.split(',') if x.strip()]
+
+# Define your leagues, parsing the contest IDs directly from .env variables.
 LEAGUES = {
-    'league_pro.json': [720384, 723541],
-    'league_challenger.json': [720674]
+    'league_pro.json': parse_ids(os.getenv('LEAGUE_PRO_IDS')),
+    'league_challenger.json': parse_ids(os.getenv('LEAGUE_CHA_IDS'))
 }
 # ==========================================
 
@@ -62,6 +68,10 @@ def get_contest_standings(contest_id):
 
 def process_league(output_file, contest_ids):
     """Fetches data for a list of contests and exports to a specific JSON file."""
+    if not contest_ids:
+        print(f"Skipping {output_file}: No contest IDs provided.")
+        return
+
     leaderboard = defaultdict(int)
     
     print(f"\n--- Processing {output_file} ({len(contest_ids)} contests) ---")
