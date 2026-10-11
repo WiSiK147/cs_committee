@@ -1,0 +1,6 @@
+[submodule "weekly_challenges"]
+	path = weekly_challenges
+	url = git@gitlab.binets.fr:csc/weekly_challenges_organisation.git
+[submodule "eduroam_connection_bot"]
+	path = eduroam_connection_bot
+	url = git@gitlab.binets.fr:csc/eduroam_connection_bot.git
